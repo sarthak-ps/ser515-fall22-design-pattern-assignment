@@ -16,7 +16,6 @@ public class Login {
     }
 
     private int validateCredentials(String username, String password){
-        System.out.println("----------------");
         if (username.equals("tutu") && password.equals("1111")){
             printDecoratedWelcomeMessage("Buyer");
             return 0;
