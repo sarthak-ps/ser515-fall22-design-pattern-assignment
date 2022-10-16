@@ -24,14 +24,15 @@ public class ProduceProductMenu implements ProductMenu{
     public void showComboxes() {
     }
 
+    @Override
     public void selectProduct(int userType){
-        System.out.println("Selected Produce Product Menu! (Utilized Bridge Patter For Connection...)");
         Person person;
         if (userType == 0){
             person = PersonFactory.createPerson("buyer");
         } else {
             person = PersonFactory.createPerson("seller");
         }
+        System.out.println("-> (Bridge Pattern) Connecting ProductMenu & Person");
         person.showMenu();
     }
 

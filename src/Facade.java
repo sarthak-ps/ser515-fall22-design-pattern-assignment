@@ -18,9 +18,10 @@ public class Facade {
 
         System.out.println("1. Meat Product Menu");
         System.out.println("2. Produce Product Menu");
+        System.out.println("-----------------------------");
         System.out.print("Choose a Product Menu (1/2): ");
         Scanner inputScanner = new Scanner(System.in);
-        ProductMenu productMenu;
+        ProductMenu productMenu = null;
 
         // Factory Pattern Used
         switch (inputScanner.nextInt()){
@@ -34,6 +35,8 @@ public class Facade {
                 System.out.println("Invalid Menu Option Selected. Terminating Application...");
                 System.exit(-1);
         }
+
+        selectProduct(productMenu);
     }
 
     public boolean login(){
@@ -58,7 +61,9 @@ public class Facade {
 
     public void attachProductToUser(){}
 
-    public void selectProduct(){}
+    public void selectProduct(ProductMenu productMenu){
+        productMenu.selectProduct(userType);
+    }
 
     public void productOperation(){}
 

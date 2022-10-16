@@ -2,7 +2,7 @@ public class PersonFactory {
 
     // Factory Pattern Implementation
     public static Person createPerson(String userType){
-        System.out.println("Using Factory Pattern For Creating User...");
+        System.out.println("-> (Factory Pattern) Creating User...");
         if (userType.equals("buyer")){
             return new Buyer();
         }
