@@ -37,6 +37,13 @@ public class Facade {
         }
 
         selectProduct(productMenu);
+
+        System.out.println("\n-> (Iterator Pattern) Iterating Through Products List...");
+        System.out.println("--------------------------------------------------------");
+        ProductIterator productIterator = new ProductIterator();
+        while (productIterator.hasNext()){
+            System.out.println(productIterator.next());
+        }
     }
 
     public boolean login(){

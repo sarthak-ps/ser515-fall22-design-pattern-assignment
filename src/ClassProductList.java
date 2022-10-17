@@ -1,5 +1,7 @@
-public class ClassProductList {
+import java.util.ArrayList;
 
-    public void accept(){}
+public class ClassProductList extends ArrayList<Product> {
+
+    public void accept(NodeVisitor visitor){}
 
 }
