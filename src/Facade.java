@@ -14,6 +14,10 @@ public class Facade {
 
     // Facade Pattern Used
     public void launch(){
+
+        FileReader.readBuyerCredentials();
+        FileReader.readSellerCredentials();
+
         login();
 
         System.out.println("1. Meat Product Menu");

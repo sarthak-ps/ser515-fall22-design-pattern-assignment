@@ -16,17 +16,17 @@ public class Login {
     }
 
     private int validateCredentials(String username, String password){
-        if (username.equals("tutu") && password.equals("1111")){
-            printDecoratedWelcomeMessage("Buyer");
-            return 0;
+        if (FileReader.buyerCredentialsList.containsKey(username)) {
+            if (FileReader.buyerCredentialsList.get(username).equals(password)) {
+                printDecoratedWelcomeMessage("Buyer");
+                return 0;
+            }
         }
-        if (username.equals("mimi") && password.equals("2222")){
-            printDecoratedWelcomeMessage("Buyer");
-            return 0;
-        }
-        if (username.equals("pepe") && password.equals("3333")){
-            printDecoratedWelcomeMessage("Seller");
-            return 1;
+        if (FileReader.sellerCredentialsList.containsKey(username)) {
+            if (FileReader.sellerCredentialsList.get(username).equals(password)) {
+                printDecoratedWelcomeMessage("Seller");
+                return 1;
+            }
         }
         System.out.println("Invalid credentials. Terminating application...");
         System.exit(-1);
