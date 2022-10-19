@@ -2,28 +2,55 @@ import java.util.Scanner;
 
 public class Login {
 
+    private final Scanner inputScanner = new Scanner(System.in);
+
+    public UserInfoItem signup(){
+        int userType = scanUserType();
+        String username = scanUsername();
+        String password = scanPassword();
+        return new UserInfoItem(userType, username.strip(), password.strip());
+    }
+
     public int login(){
-        String username, password;
-        Scanner inputScanner = new Scanner(System.in);
-
-        System.out.print("Enter Username: ");
-        username = inputScanner.next();
-
-        System.out.print("Enter Password: ");
-        password = inputScanner.next();
-
+        String username = scanUsername();
+        String password = scanPassword();
         return validateCredentials(username, password);
     }
 
+    private String scanUsername(){
+        String username;
+        System.out.print("Enter Username: ");
+        username = inputScanner.next();
+        return username;
+    }
+
+    private String scanPassword(){
+        String password;
+        System.out.print("Enter Password: ");
+        password = inputScanner.next();
+        return password;
+    }
+
+    private int scanUserType(){
+        int userType;
+        System.out.println("Type of User You Want To Add:");
+        System.out.println("0: Buyer");
+        System.out.println("1: Seller");
+        System.out.println("-----------------------------");
+        System.out.print("Enter Type Of User: ");
+        userType = inputScanner.nextInt();
+        return userType;
+    }
+
     private int validateCredentials(String username, String password){
-        if (FileReader.buyerCredentialsList.containsKey(username)) {
-            if (FileReader.buyerCredentialsList.get(username).equals(password)) {
+        if (FileDataManager.buyerCredentialsList.containsKey(username)) {
+            if (FileDataManager.buyerCredentialsList.get(username).equals(password)) {
                 printDecoratedWelcomeMessage("Buyer");
                 return 0;
             }
         }
-        if (FileReader.sellerCredentialsList.containsKey(username)) {
-            if (FileReader.sellerCredentialsList.get(username).equals(password)) {
+        if (FileDataManager.sellerCredentialsList.containsKey(username)) {
+            if (FileDataManager.sellerCredentialsList.get(username).equals(password)) {
                 printDecoratedWelcomeMessage("Seller");
                 return 1;
             }

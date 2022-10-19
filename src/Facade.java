@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Facade {
 
-    private int userType;
+    // -1 value means user is not yet logged in
+    private int userType = -1;
 
     private Product theSelectedProduct;
 
@@ -15,10 +16,36 @@ public class Facade {
     // Facade Pattern Used
     public void launch(){
 
-        FileReader.readBuyerCredentials();
-        FileReader.readSellerCredentials();
+        FileDataManager.readBuyerCredentials();
+        FileDataManager.readSellerCredentials();
 
-        login();
+        int userSelection = -1;
+        Scanner scanner = new Scanner(System.in);
+
+        while (userSelection != 0 && userType == -1){
+            System.out.println("\nChoose One Of The Following:");
+            System.out.println("1: SignUp New User");
+            System.out.println("2: LogIn Existing User");
+            System.out.println("----------------------------");
+            System.out.print("Choose Your Operation: ");
+
+            userSelection = scanner.nextInt();
+            System.out.println("");
+
+            switch (userSelection){
+                case 1:
+                    Login login = new Login();
+                    UserInfoItem userInfoItem = login.signup();
+                    createUser(userInfoItem);
+                    break;
+                case 2:
+                    login();
+                    break;
+                default:
+                    userSelection = 0;
+                    break;
+            }
+        }
 
         System.out.println("1. Meat Product Menu");
         System.out.println("2. Produce Product Menu");
@@ -77,5 +104,9 @@ public class Facade {
     }
 
     public void productOperation(){}
+
+    public void createUser(UserInfoItem userInfoItem){
+        FileDataManager.addNewUser(userInfoItem);
+    }
 
 }

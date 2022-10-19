@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileReader {
+public class FileDataManager {
 
     static Map<String, String> buyerCredentialsList = new HashMap<>();
     static Map<String, String> sellerCredentialsList = new HashMap<>();
@@ -29,6 +31,25 @@ public class FileReader {
                 String[] tokens = line.split(":");
                 sellerCredentialsList.put(tokens[0], tokens[1]);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewUser(UserInfoItem userInfoItem){
+        FileWriter fileWriter = null;
+        try {
+            if (userInfoItem.getUserType() == 0) {
+                fileWriter = new FileWriter("src/BuyerInfo.txt", true);
+                buyerCredentialsList.put(userInfoItem.getUsername(), userInfoItem.getPassword());
+            } else {
+                fileWriter = new FileWriter("src/SellerInfo.txt", true);
+                sellerCredentialsList.put(userInfoItem.getUsername(), userInfoItem.getPassword());
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.newLine();
+            bufferedWriter.write(userInfoItem.getUsername() + ":" + userInfoItem.getPassword());
+            bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
