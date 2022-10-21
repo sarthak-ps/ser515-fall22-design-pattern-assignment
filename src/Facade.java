@@ -14,7 +14,7 @@ public class Facade {
     private Person thePerson;
 
     // Facade Pattern Used
-    public void launch(){
+    public void launchCLI(){
 
         FileDataManager.readBuyerCredentials();
         FileDataManager.readSellerCredentials();
