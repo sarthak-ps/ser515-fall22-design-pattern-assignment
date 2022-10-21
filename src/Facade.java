@@ -83,6 +83,7 @@ public class Facade {
         while (userSelection != 0){
             System.out.println();
             System.out.println("1: Submit Bid");
+            System.out.println("2: Visit Facade (Visitor Pattern)");
             System.out.println("0: Exit Application");
             System.out.println("----------------------------");
             System.out.print("Choose An Option: ");
@@ -93,6 +94,9 @@ public class Facade {
                 case 1:
                     submitBidding();
                     break;
+                case 2:
+                    ReminderVisitor reminderVisitor = new ReminderVisitor();
+                    reminderVisitor.visitFacade(this);
             }
         }
     }
@@ -137,7 +141,7 @@ public class Facade {
         productBidPrice = scanner.nextLine();
 
         FileDataManager.addNewProductBid(productName, Double.parseDouble(productBidPrice));
-        System.out.println("Bid Added To Database Successfully!");
+        System.out.println("Bid Added To Database Successfully! (Bid written to file located at src/database_files/UserProduct.txt)");
     }
 
     public void remind(){}

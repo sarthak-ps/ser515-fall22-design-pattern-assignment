@@ -15,7 +15,7 @@ public class FileDataManager {
 
     public static void readBuyerCredentials() {
         try (BufferedReader bufferedReader =
-                new BufferedReader(new java.io.FileReader("src/BuyerInfo.txt"))){
+                new BufferedReader(new java.io.FileReader("src/database_files/BuyerInfo.txt"))){
             String line;
             while ((line = bufferedReader.readLine()) != null){
                 String[] tokens = line.split(":");
@@ -28,7 +28,7 @@ public class FileDataManager {
 
     public static void readSellerCredentials() {
         try (BufferedReader bufferedReader =
-                new BufferedReader(new java.io.FileReader("src/SellerInfo.txt"))){
+                new BufferedReader(new java.io.FileReader("src/database_files/SellerInfo.txt"))){
             String line;
             while ((line = bufferedReader.readLine()) != null){
                 String[] tokens = line.split(":");
@@ -43,10 +43,10 @@ public class FileDataManager {
         FileWriter fileWriter = null;
         try {
             if (userInfoItem.getUserType() == 0) {
-                fileWriter = new FileWriter("src/BuyerInfo.txt", true);
+                fileWriter = new FileWriter("src/database_files/BuyerInfo.txt", true);
                 buyerCredentialsList.put(userInfoItem.getUsername(), userInfoItem.getPassword());
             } else {
-                fileWriter = new FileWriter("src/SellerInfo.txt", true);
+                fileWriter = new FileWriter("src/database_files/SellerInfo.txt", true);
                 sellerCredentialsList.put(userInfoItem.getUsername(), userInfoItem.getPassword());
             }
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -60,7 +60,7 @@ public class FileDataManager {
 
     public static void readProductInfo() {
         try (BufferedReader bufferedReader =
-                new BufferedReader(new java.io.FileReader("src/ProductInfo.txt"))) {
+                new BufferedReader(new java.io.FileReader("src/database_files/ProductInfo.txt"))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(":");
@@ -72,7 +72,7 @@ public class FileDataManager {
     }
 
     public static void addNewProduct(Product product) {
-        try (FileWriter fileWriter = new FileWriter("src/ProductInfo.txt", true)) {
+        try (FileWriter fileWriter = new FileWriter("src/database_files/ProductInfo.txt", true)) {
             productsList.add(product);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.newLine();
@@ -84,8 +84,8 @@ public class FileDataManager {
     }
 
     public static void addNewProductBid(String productName, double bidPrice) {
-        File file = new File("src/UserProduct.txt");
-        try (FileWriter fileWriter = new FileWriter("src/UserProduct.txt", true)) {
+        File file = new File("src/database_files/UserProduct.txt");
+        try (FileWriter fileWriter = new FileWriter("src/database_files/UserProduct.txt", true)) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             if (file.length() != 0){
                 bufferedWriter.newLine();
