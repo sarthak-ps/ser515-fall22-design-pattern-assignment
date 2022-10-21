@@ -78,6 +78,23 @@ public class Facade {
         person.setTheProductMenu(productMenu);
 
         selectProduct(person);
+
+        userSelection = -1;
+        while (userSelection != 0){
+            System.out.println();
+            System.out.println("1: Submit Bid");
+            System.out.println("0: Exit Application");
+            System.out.println("----------------------------");
+            System.out.print("Choose An Option: ");
+
+            userSelection = scanner.nextInt();
+
+            switch (userSelection){
+                case 1:
+                    submitBidding();
+                    break;
+            }
+        }
     }
 
     public boolean login(){
@@ -86,7 +103,7 @@ public class Facade {
         return userType != -1;
     }
 
-    public void addTrading(){}
+    public void addTrading(){ }
 
     public void viewTrading(){}
 
@@ -94,7 +111,34 @@ public class Facade {
 
     public void discussBidding(){}
 
-    public void submitBidding(){}
+    public void submitBidding(){
+        String productName;
+        String productBidPrice;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nEnter Product Name: ");
+        productName = scanner.nextLine();
+
+        ProductIterator productIterator = new ProductIterator();
+        boolean isValidProduct = false;
+
+        while (productIterator.hasNext()){
+            Product product = (Product) productIterator.next();
+            if (product.getName().toLowerCase().equals(productName.strip().toLowerCase())){
+                isValidProduct = true;
+            }
+        }
+
+        if (!isValidProduct){
+            System.out.println("Product Name Is Invalid!");
+            return;
+        }
+
+        System.out.print("Enter Bid Price: ");
+        productBidPrice = scanner.nextLine();
+
+        FileDataManager.addNewProductBid(productName, Double.parseDouble(productBidPrice));
+        System.out.println("Bid Added To Database Successfully!");
+    }
 
     public void remind(){}
 

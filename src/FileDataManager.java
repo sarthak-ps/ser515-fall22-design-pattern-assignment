@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ public class FileDataManager {
     static Map<String, String> buyerCredentialsList = new HashMap<>();
     static Map<String, String> sellerCredentialsList = new HashMap<>();
     static ClassProductList productsList = new ClassProductList();
+    static String currentSessionUsername;
 
     public static void readBuyerCredentials() {
         try (BufferedReader bufferedReader =
@@ -75,6 +77,20 @@ public class FileDataManager {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.newLine();
             bufferedWriter.write(product.getType() + ":" + product.getName());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewProductBid(String productName, double bidPrice) {
+        File file = new File("src/UserProduct.txt");
+        try (FileWriter fileWriter = new FileWriter("src/UserProduct.txt", true)) {
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            if (file.length() != 0){
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.write(FileDataManager.currentSessionUsername + ":" + productName + ":" + bidPrice);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

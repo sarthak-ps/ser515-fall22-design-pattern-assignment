@@ -45,12 +45,14 @@ public class Login {
     private int validateCredentials(String username, String password){
         if (FileDataManager.buyerCredentialsList.containsKey(username)) {
             if (FileDataManager.buyerCredentialsList.get(username).equals(password)) {
+                FileDataManager.currentSessionUsername = username;
                 printDecoratedWelcomeMessage("Buyer");
                 return 0;
             }
         }
         if (FileDataManager.sellerCredentialsList.containsKey(username)) {
             if (FileDataManager.sellerCredentialsList.get(username).equals(password)) {
+                FileDataManager.currentSessionUsername = username;
                 printDecoratedWelcomeMessage("Seller");
                 return 1;
             }
