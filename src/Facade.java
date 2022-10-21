@@ -18,9 +18,11 @@ public class Facade {
 
         FileDataManager.readBuyerCredentials();
         FileDataManager.readSellerCredentials();
+        FileDataManager.readProductInfo();
 
         int userSelection = -1;
         Scanner scanner = new Scanner(System.in);
+        Person person = null;
 
         while (userSelection != 0 && userType == -1){
             System.out.println("\nChoose One Of The Following:");
@@ -40,6 +42,12 @@ public class Facade {
                     break;
                 case 2:
                     login();
+                    if (userType == 0) {
+                        person = PersonFactory.createPerson("buyer");
+                    }
+                    else if (userType == 1){
+                        person = PersonFactory.createPerson("seller");
+                    }
                     break;
                 default:
                     userSelection = 0;
@@ -47,7 +55,7 @@ public class Facade {
             }
         }
 
-        System.out.println("1. Meat Product Menu");
+        System.out.println("\n1. Meat Product Menu");
         System.out.println("2. Produce Product Menu");
         System.out.println("-----------------------------");
         System.out.print("Choose a Product Menu (1/2): ");
@@ -67,14 +75,9 @@ public class Facade {
                 System.exit(-1);
         }
 
-        selectProduct(productMenu);
+        person.setTheProductMenu(productMenu);
 
-        System.out.println("\n-> (Iterator Pattern) Iterating Through Products List...");
-        System.out.println("--------------------------------------------------------");
-        ProductIterator productIterator = new ProductIterator();
-        while (productIterator.hasNext()){
-            System.out.println(productIterator.next());
-        }
+        selectProduct(person);
     }
 
     public boolean login(){
@@ -99,8 +102,8 @@ public class Facade {
 
     public void attachProductToUser(){}
 
-    public void selectProduct(ProductMenu productMenu){
-        productMenu.selectProduct(userType);
+    public void selectProduct(Person person){
+        person.showMenu();
     }
 
     public void productOperation(){}

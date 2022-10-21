@@ -9,6 +9,7 @@ public class FileDataManager {
 
     static Map<String, String> buyerCredentialsList = new HashMap<>();
     static Map<String, String> sellerCredentialsList = new HashMap<>();
+    static ClassProductList productsList = new ClassProductList();
 
     public static void readBuyerCredentials() {
         try (BufferedReader bufferedReader =
@@ -49,6 +50,31 @@ public class FileDataManager {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.newLine();
             bufferedWriter.write(userInfoItem.getUsername() + ":" + userInfoItem.getPassword());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readProductInfo() {
+        try (BufferedReader bufferedReader =
+                new BufferedReader(new java.io.FileReader("src/ProductInfo.txt"))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] tokens = line.split(":");
+                productsList.add(new Product(tokens[0], tokens[1]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewProduct(Product product) {
+        try (FileWriter fileWriter = new FileWriter("src/ProductInfo.txt", true)) {
+            productsList.add(product);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.newLine();
+            bufferedWriter.write(product.getType() + ":" + product.getName());
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

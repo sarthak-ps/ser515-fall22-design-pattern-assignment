@@ -14,4 +14,12 @@ public abstract class Person {
 
     public abstract ProductMenu createProductMenu();
 
+    public ProductMenu getTheProductMenu() {
+        return theProductMenu;
+    }
+
+    public void setTheProductMenu(ProductMenu theProductMenu) {
+        this.theProductMenu = theProductMenu;
+    }
+    
 }

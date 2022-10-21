@@ -11,7 +11,4 @@ public interface ProductMenu {
     void showLabels();
 
     void showComboxes();
-
-    void selectProduct(int userType);
-
 }
